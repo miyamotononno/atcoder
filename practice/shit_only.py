@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+
+qqq = int(input())
+
+# スペース区切りの整数の入力
+A = list(map(int, input().split()))
+cnt = 0
+while all(a % 2 == 0 for a in A):
+    A = [a/2 for a in A]
+    cnt += 1
+print(cnt)
