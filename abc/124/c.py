@@ -6,12 +6,6 @@ odd_list = N[0:len(N):2]
 even_list = N[1:len(N):2]
 
 
-def a():
-    if len(even_list) == 0:
-        print(0)
-        return
-
-
 def calc_one_and_zero(arr):
     zero_count = arr.count('0')
     one_count = arr.count('1')
