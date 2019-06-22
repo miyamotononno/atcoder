@@ -19,3 +19,12 @@ for i in range(N):
 #for文で二次元配列を初期化(M*N)
 M = 0
 L = [[0]*M for i in range(N)]
+
+#アルファベット小文字
+[chr(i) for i in range(97, 97+26)]
+
+#アルファベット大文字
+[chr(i) for i in range(65, 65+26)]
+
+#半角数字
+[chr(i) for i in range(48, 48+10)]
