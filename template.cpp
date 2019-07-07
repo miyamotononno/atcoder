@@ -27,7 +27,7 @@ int main() {
     int n;
     cin >> n;
 
-    cout << n << "\n";
+    cout << n << endl;
     return 0;
 }
 
