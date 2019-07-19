@@ -31,6 +31,13 @@ int main() {
     return 0;
 }
 
+// n次元配列の初期化。第２引数の型のサイズごとに初期化していく。
+template<typename A, size_t N, typename T>
+void Fill(A (&array)[N], const T &val){
+    std::fill( (T*)array, (T*)(array+N), val );
+}
+// Fill(d, 3); 多次元配列でも対応可能
+
 
 // gcd lcm
 ll gcd(ll a, ll b) {
