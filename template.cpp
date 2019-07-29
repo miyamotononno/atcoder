@@ -20,15 +20,15 @@ using namespace std;
 const ll MOD = 1000000007LL;
 
 int main() {
-    cin.sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
+  cin.sync_with_stdio(false);
+  cin.tie(0);
+  cout.tie(0);
 
-    int n;
-    cin >> n;
+  int n;
+  cin >> n;
 
-    cout << n << endl;
-    return 0;
+  cout << n << endl;
+  return 0;
 }
 
 // n次元配列の初期化。第２引数の型のサイズごとに初期化していく。
