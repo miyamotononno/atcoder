@@ -22,6 +22,7 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1000000007LL;
 int N;
+int A[100001];
 
 int main() {
   cin.sync_with_stdio(false);
