@@ -16,8 +16,6 @@
 #include <map>
 #define rep(i,n) for (int i=0; i<n;++i)
 #define rep_down(i,n) for (int i=n-1; i>=0;--i)
-template<class T>bool chmax(T &a, const T &b) { if (a<b) { a=b; return 1; } return 0; }
-template<class T>bool chmin(T &a, const T &b) { if (b<a) { a=b; return 1; } return 0; }
 typedef long long ll;
 using namespace std;
 const ll MOD = 1000000007LL;
