@@ -18,6 +18,25 @@ using namespace std;
 const ll MOD = 1000000007LL;
 const int INF = 1000000007;
 string S;
+int cnt;
+string now, pre;
+
+int check_count(string s){
+  int trgt = 0;
+  while (trgt < s.size()){
+    now += s[trgt];
+    if (now != pre){
+      pre = now;
+      now = "";
+      cnt++; trgt++;
+      continue;
+    }
+    trgt++;
+  }
+
+  if (now == pre) return cnt--;
+  return cnt;
+}
 
 int main() {
   cin.sync_with_stdio(false);
@@ -25,30 +44,18 @@ int main() {
   cout.tie(0);
 
   cin >> S;
-  int trgt = 0;
-  int cnt = 0;
-  char pre[2] = "";
-  while (trgt < S.size()){
-    char now[2] = "";
-    now[0] = S[trgt];
-    if (strcmp(now, pre) != 0){
-      pre[0] = now[0];
-      pre[1] = now[1];
-      cnt += 1;
-      trgt += 1;
-      continue;
-    }
-    trgt += 1;
-    now[1] = S[trgt];
-    if (strcmp(now, pre) != 0){
-      pre[0] = now[0];
-      pre[1] = now[1];
-      cnt += 1;
-      trgt += 1;
-    }
+  cnt = 0;
+  pre = "";
+  int ans1 =check_count(S);
+  if (S.size() == 1) {
+    cout << 1 << endl;
+    return 0;
   }
-
-  cout << cnt << endl;
+  pre = "";
+  string T = S.substr(2, S.size()-2);
+  cnt=1;
+  int ans2 = check_count(T);
+  cout << max(ans1, ans2) <<endl;
 
   return 0;
 }
