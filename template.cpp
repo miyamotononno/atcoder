@@ -46,13 +46,13 @@ void Fill(A (&array)[N], const T &val){
 
 
 // gcd lcm
-ll gcd(ll a, ll b) {
+ll calc_gcd(ll a, ll b) {
     if (b == 0) return a;
-    return gcd(b, a % b);
+    return calc_gcd(b, a % b);
 }
 
-ll lcm(ll a, ll b) {
-    ll g = gcd(a, b);
+ll calc_lcm(ll a, ll b) {
+    ll g = calc_gcd(a, b);
     return a / g * b;
 }
 
