@@ -31,7 +31,6 @@ int main() {
   return 0;
 }
 
-
 // その他　便利機能
 #define index_of(as, x) distance(as.begin(), lower_bound(as.begin(), as.end(), x))
 typedef pair<int, int> P;

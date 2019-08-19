@@ -34,32 +34,22 @@ int main() {
   }
 
   rep(i, T.size()){
-    char s = T[i];
-    if (M[s]==0){
+    char t = T[i];
+    if (M[t]==0){
       cout << -1 << endl;
       return 0;
     }
   }
-  ll l = S.size();
-  ll ans = 0ll;
+  ll current = -1ll;
   ll counter = 0ll;
   rep(i, T.size()){
     char c = T[i];
-    bool flag = false;
-    rep(j, N[c].size()){
-      if (ans < N[c][j] && N[c][j] < (counter+1)*l){
-        ans += N[c][j];
-        N[c][j]+=l;
-        flag = true; 
-        break;
-      }
-      N[c][j]+=l;
-    }
-    if (flag) continue;
-    counter+=1ll;
-    ans = N[c][0];
-    N[c][0]+=l;
+    vector<ll>::iterator it = upper_bound(N[c].begin(), N[c].end(), current);
+    if (it == N[c].end()){
+      counter++;
+      current = N[c][0];
+    } else current = *it;
   }
-  cout << ans+1 << endl;
+  cout << counter*S.size()+current+1ll << endl;
   return 0;
 }
