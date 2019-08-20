@@ -36,7 +36,7 @@ int main(){
     w%=2;
     pair<int, int> a = make_pair(v,w);
     g[u].push_back(a);
-    <int, int> b = make_pair(u,w);
+    pair<int, int> b = make_pair(u,w);
     g[v].push_back(b);
   }
 
