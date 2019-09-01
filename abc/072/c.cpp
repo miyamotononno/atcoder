@@ -25,6 +25,21 @@ int main() {
 
   cin >> N;
 
-  cout << N << "\n";
+  vector<int> A(N);
+  rep(i, N) cin >> A[i];
+
+  sort(A.begin(),A.end());
+
+  int a = A[0];
+  int c = a+2;
+  int ans = 1;
+  while(a<=A.back()){
+    int dis = distance(A.begin(), upper_bound(ALL(A), c));
+    int dis2 = distance(A.begin(), lower_bound(ALL(A), a));
+    ans = max(ans, dis - dis2);
+    a++; c++;
+  }
+
+  cout << ans << "\n";
   return 0;
 }
