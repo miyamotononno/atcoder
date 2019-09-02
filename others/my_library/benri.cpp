@@ -82,3 +82,12 @@ bool IsPrime(int num){
   }
   return true;
 }
+
+int stringToInt(string s){
+  int res = 0;
+  rep(i, s.size()){
+    int a = s[i] - '0';
+    res = res*10+a;
+  }
+  return res;
+}
