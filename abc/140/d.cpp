@@ -26,7 +26,14 @@ int main() {
 
   cin >> N >> K;
   cin >> S;
-
-  cout << N << "\n";
+  int cnt = N;
+  if (S[0]=='L') cnt--;
+  if (S[N-1]=='R') cnt--;
+  int idx = 1;
+  rep(i, N){
+    if (i<N-1 && S[i] == 'R' && S[i+1] == 'L') cnt--;
+    if (i>0 && S[i] == 'L' && S[i-1] == 'R') cnt--;
+  }
+  cout << min(cnt+2*K, N-1) << "\n";
   return 0;
 }
