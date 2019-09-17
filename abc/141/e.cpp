@@ -16,6 +16,7 @@ typedef long long ll;
 using namespace std;
 
 // 文字列Sが与えられた時に、LCP配列を返す
+// Zalgoの計算量はO(n), 全体でO(n^2)
 vector<int> Zalgo(const string &S) {
   int N = (int)S.size();
   vector<int> res(N);

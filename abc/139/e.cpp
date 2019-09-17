@@ -1,74 +1,68 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
-#include <cstring>
-#include <string>
 #include <vector>
-#include <random>
-#include <bitset>
 #include <queue>
-#include <cmath>
-#include <unordered_map>
 #define rep(i,n) for (int i=0; i<n;++i)
-#define rep_down(i,n) for (int i=n-1; i>=0;--i)
-#define ALL(a)  (a).begin(),(a).end()
-typedef long long ll;
 using namespace std;
-const int INF = 1000000007;
+queue<int> Ready, Next;
 int N;
-typedef queue<int> que;
-que Mp[1002];
 
 int main() {
-  cin.sync_with_stdio(false);
-  cin.tie(0);
-  cout.tie(0);
+    cin.sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
 
-  cin >> N;
-  int a;
-  rep(i,N){
-    rep(j, N-1){
-      cin >> a;
-      a--;
-      Mp[i].push(a);
-    }
-  }
-
-  int cnt = 0;
-  bool flag = true;
-  int maxDay=N*(N-1)/2;
-  while(flag){
-    if (maxDay<0){
-      cout << -1 << "\n";
-      return 0;
-    } 
+    cin >> N;
+    vector<vector<int> > A(N, vector<int>(N-1));
+    int a;
     rep(i, N){
-      if (!Mp[i].empty()){
-        flag = false;
-        break;
+      rep(j, N-1){
+        cin >> a;
+        a--;
+        A[i][j] = a;
+      }
+      Ready.push(i);
+    }
+
+    int ans = 0;
+    vector<int> Idx(N, 0); //N人の試合の進み具合
+    vector<vector<bool> > Finished(N, vector<bool>(N));
+    rep(i, N) Finished[i][0] = true;
+    while(!Ready.empty()){
+      cout << ans+1 << "日目" << "\n";
+      while(!Ready.empty()){
+        int player = Ready.front();
+        Ready.pop();
+        int now_game = Idx[player];
+        int other = A[player][now_game];
+
+        // その日は試合できず
+        if (A[other][Idx[other]]!=player) continue;
+
+        // 試合成立
+        cout << player+1 << "と" << other+1 << "\n";
+        Idx[player]++;
+        Idx[other]++;
+        Finished[player][now_game] = true;
+        Finished[other][Idx[other]] = true;
+        if (Idx[player]<N) Next.push(player);
+        if (Idx[other]<N) Next.push(other);
+      }
+      ans++;
+
+      while(!Next.empty()){
+        int p = Next.front();
+        Ready.push(p);
+        Next.pop();
       }
     }
-    if (flag) break;
-    vector<bool> Today(N, false);
-    rep(i, N){
-      if (Mp[i].empty()) continue;
-      int a = Mp[i].front();
-      if (Mp[a].front()==i && !Today[a] && !Today[i]){
-        flag = true;
-        Mp[i].pop();
-        Mp[a].pop();
-        Today[i] = true;
-        Today[a] = true;
-      }
-    }
-    if (flag) cnt++;
-    else {
-      cout << -1 << "\n";
-      return 0;
-    }
-  }
 
-  
-  cout << cnt << "\n";
-  return 0;
+    bool ok = true;
+    rep(i, N){
+      if (Idx[i]==N) ok = false; 
+    }
+
+    cout << (ok ? ans : -1) << "\n";
+    return 0;
 }
