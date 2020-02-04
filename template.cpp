@@ -14,8 +14,8 @@
 #define ALL(a)  (a).begin(),(a).end()
 typedef long long ll;
 using namespace std;
-const ll MOD = 1000000007LL;
-const int INF = 1000000007;
+const ll MOD = 1e9+7LL;
+const int INF = 1e9+7;
 int N;
 
 int main() {
@@ -25,6 +25,6 @@ int main() {
 
   cin >> N;
 
-  cout << N << "\n";
+  cout << 1 << "\n";
   return 0;
 }
