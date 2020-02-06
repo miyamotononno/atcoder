@@ -6,24 +6,25 @@
 #include <vector>
 #include <random>
 #include <bitset>
+#include <set>
 #include <queue>
 #include <cmath>
-#include <stack>
-#include <set>
-#include <map>
+#include <unordered_map>
 #define rep(i,n) for (int i=0; i<n;++i)
+#define rep_down(i,n) for (int i=n-1; i>=0;--i)
+#define ALL(a)  (a).begin(),(a).end()
+typedef long long ll;
 using namespace std;
-const int MAX_N = 1e5+10;
-int par[MAX_N]; //親
-int tree_rank[MAX_N]; //木の深さ
-int siz[MAX_N]; //木の深さ
+const ll MOD = 1e9+7LL;
+const int INF = 1e9+7;
+int N, M;
+int par[100020]; //親
+int tree_rank[100020]; //木の深さ
 
-// n要素で初期化
 void init(int n){
   rep(i, n){
     par[i] = i;
     tree_rank[i] = 0;
-    siz[i] = 1;
   }
 }
 
@@ -39,17 +40,9 @@ void unite(int x, int y){
   y = find(y);
   if (x == y) return;
 
-  if (tree_rank[x] < tree_rank[y]) {
-    par[x] = y;
-    int tmp = siz[x];
-    siz[x] += siz[y];
-    siz[y] = siz[x];
-  }
+  if (tree_rank[x] < tree_rank[y]) par[x] = y;
   else{
     par[y] = x;
-    int tmp = siz[x];
-    siz[x] += siz[y];
-    siz[y] = siz[x];
     if (tree_rank[x] == tree_rank[y]) tree_rank[x]++;
   }
 }
@@ -59,7 +52,22 @@ bool same(int x, int y){
   return find(x) == find(y);
 }
 
-int size(int x) { // 素集合のサイズ
-  return siz[find(x)];
-}
+int main() {
+  cin.sync_with_stdio(false);
+  cin.tie(0);
+  cout.tie(0);
 
+  cin >> N >> M;
+  int a, b;
+  init(N);
+  rep(i, M) {
+    cin >> a >> b;
+    a--; b--;
+    if(!same(a, b)) unite(a,b);
+    
+  }
+  set<int> s;
+  rep(i, N) s.insert(find(i));
+  cout << s.size() - 1 << "\n";
+  return 0;
+}

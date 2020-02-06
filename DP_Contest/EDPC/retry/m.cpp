@@ -18,7 +18,7 @@ const ll MOD = 1e9+7LL;
 int N, K;
 ll A[103];
 ll DP[103][100003]; //i人にあめがj個の分け方の場合の数
-ll SUMDP[103][100003]; // DP[i][j]にはDP[i-1][j-a[i]]からDP[i-1][j]までの和が入る
+ll SUMDP[103][100003]; // SUMDP[i][j]にはDP[i-1][j-a[i]]からDP[i-1][j]までの和が入る
 
 int main() {
   cin.sync_with_stdio(false);
