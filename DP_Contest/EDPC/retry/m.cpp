@@ -40,7 +40,6 @@ int main() {
         DP[i][j] = SUMDP[i][j] - SUMDP[i][j-A[i]-1];
         DP[i][j] %= MOD;
       }
-      SUMDP[i][j] %= MOD;
     }
   }
 
