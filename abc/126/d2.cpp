@@ -14,9 +14,22 @@
 #define ALL(a)  (a).begin(),(a).end()
 typedef long long ll;
 using namespace std;
+typedef pair<int, int> P;
 const ll MOD = 1e9+7LL;
-const int INF = 2e9;
+const int INF = 1e9+7;
 int N;
+vector<P> T[100005];
+int color[100005]; // 0は未彩色　-1or1
+
+void dfs(int v, int c){
+  if (color[v] != 0) return;
+  color[v] = c;
+  rep(i, T[v].size()) {
+    P p = T[v][i];
+    int nc = p.second?-c:c;
+    dfs(p.first, nc);
+  }
+}
 
 int main() {
   cin.sync_with_stdio(false);
@@ -24,7 +37,19 @@ int main() {
   cout.tie(0);
 
   cin >> N;
+  int u,v,w;
+  rep(i, N-1) {
+    cin >> u >> v >> w;
+    u--; v--;
+    w%=2;
+    T[u].push_back(P(v,w));
+    T[v].push_back(P(u,w));
+  }
 
-  cout << 1 << "\n";
+  dfs(0,1);
+  rep(i, N) {
+    int c = color[i]>0?1:0;
+    cout << c << "\n";
+  }
   return 0;
 }
