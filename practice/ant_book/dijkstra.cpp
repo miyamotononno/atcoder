@@ -16,14 +16,13 @@ const int INF = 1000000007;
 #define ALL(a)  (a).begin(),(a).end()
 struct edge {int to, cost; };
 typedef pair<int, int> P; //firstは最短距離、secondは頂点の番号
- 
 int V;
 vector<edge> G[1000000]; //MAX_V
 int d[1000000], prev[1000000]; //MAX_V
 
 void dijkstra(int s) {
   // greater<P>を指定することでfirstが小さい順に取り出せるようにする
-  priority_queue<P, vector<P>, greater<P> >  que;
+  priority_queue<P, vector<P>, greater<P> > que;
   fill(d, d + V, INF);
   fill(prev, prev + V, -1);
   d[s] = 0;
