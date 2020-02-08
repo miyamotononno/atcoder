@@ -17,12 +17,12 @@ using namespace std;
 const ll MOD = 1000000007LL;
 const int MAX_V = 100000;
 int d[MAX_V][MAX_V]; //d[u][v]は辺e = (u, v)のコスト。存在しない場合はINF,ただしd[i][j]=0とする。
-int V;
+int N;
 
 void warshall_floyd() {
-  rep(k, V){
-    rep(i, V){
-      rep(j, V) d[i][j] =min(d[i][j], d[i][k]+d[k][j]);
+  rep(k, N){
+    rep(i, N){
+      rep(j, N) d[i][j] =min(d[i][j], d[i][k]+d[k][j]);
     }
   }
 }
