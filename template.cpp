@@ -10,7 +10,6 @@
 #include <cmath>
 #include <unordered_map>
 #define rep(i,n) for (int i=0; i<n;++i)
-#define rep_down(i,n) for (int i=n-1; i>=0;--i)
 #define ALL(a)  (a).begin(),(a).end()
 typedef long long ll;
 using namespace std;
