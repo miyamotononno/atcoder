@@ -15,24 +15,25 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
-ll K; 
-vector<int> A, F;
+int N, K;
+vector<int> Counts;
 // 二分探索
 
-bool is_large(ll X) {
-  ll sum = 0ll;
-  rep(i, N) sum += max(0ll, A[i]- (X/F[i]));
-  return sum > K;
+bool is_large(int X) {
+  int sum = 0;
+  rep(i, Counts.size()){
+    sum += Counts[i]/(X+1);
+  }
+  return sum <= K;
 }
 
-ll binary_search(ll l, ll r) {
+ll binary_search(int l, int r) {
   while(r-l>1) {
     ll mid = (r+l)/2;
-    if (is_large(mid)) l = mid;
-    else r = mid;
+    if (is_large(mid)) r = mid;
+    else l = mid;
   }
-  return r;
+  return r; // lがokならここをlに変更すること。
 }
 
 int main() {
@@ -41,20 +42,22 @@ int main() {
   cout.tie(0);
 
   cin >> N >> K;
-  ll a;
+  int a;
+  int tmp =0;
+  int cnt = 1;
   rep(i, N) {
     cin >> a;
-    A.push_back(a);  
+    if (a!=tmp) {
+      tmp = a;
+      Counts.push_back(cnt);
+      cnt = 1;
+    } else {
+      cnt++;
+    }
   }
-  rep(i, N) {
-    cin >> a;
-    F.push_back(a);  
-  }
-  sort(ALL(A));
-  sort(ALL(F),greater<ll>());
-
-  ll ok = 1e13;
-  ll ng = -1;
+  Counts.push_back(cnt);
+  int ng = 0;
+  int ok = N;
   cout << binary_search(ng, ok) << "\n";
   return 0;
 }
