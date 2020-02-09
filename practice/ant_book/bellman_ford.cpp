@@ -19,10 +19,10 @@ const int INF = numeric_limits<int>::max();
 struct edge {int from, to, cost;};
 edge es[MAX_E];
 int d[MAX_V];
-int V,E;
+int N,E;
 
 void shortest_path(int s){
-  rep(i, V) d[i] = INF;
+  rep(i, N) d[i] = INF;
   d[s] = 0;
   while(true){
     bool update = false;
@@ -39,15 +39,32 @@ void shortest_path(int s){
 
 bool find_negative_loop(){
   memset(d, 0, sizeof(d));
-  rep(i, V){
+  rep(i, N){
     rep(j, E){
       edge e =es[j];
       if (d[e.to] > d[e.from] + e.cost) {
         d[e.to] = d[e.from] + e.cost;
         // n回目にも更新があるなら負の経路が存在する
-        if (i == V-1) return true;
+        if (i == N-1) return true;
       }
     }
   }
   return false;
+}
+
+// 目的地までいくのに、閉路が存在する場合は以下。
+bool Negative[1005];
+void find_negative_loop2(){
+  memset(Negative, false, sizeof(Negative));
+  rep(i, N){
+    rep(j, E){
+      edge e =es[j];
+      if (d[e.from] == INF) continue;
+      if (d[e.to] > d[e.from] + e.cost) {
+        d[e.to] = d[e.from] + e.cost;
+        Negative[e.to] = true;
+      }
+      if (Negative[e.from]) Negative[e.to] = true;
+    }
+  }
 }
