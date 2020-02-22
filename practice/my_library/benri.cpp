@@ -55,6 +55,18 @@ ll pow_mod(ll num, ll pow, ll mod) {
     return prod;
 }
 
+
+// nPc. nCc = nPc/c!なのでnが膨大なときはこれを使う
+ll kaizyo(ll a, int c) {
+  ll b = 1;
+  rep(i, c) {
+    b *= a;
+    b%=MOD;
+    a--;
+  }
+  return b;
+}
+
 // nCrを求める
 void comb(vector<vector <long long int> > &v){
   for(int i = 0;i <v.size(); i++){
