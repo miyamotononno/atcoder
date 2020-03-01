@@ -130,7 +130,7 @@ void count() {
 void find() {
   int c[8] = {29, 23, 32, 30, 25, 34, 73, 30};
   vector<int> b = {29, 23, 32, 30, 25, 34, 73, 30};
-  cout << find(c, c + 8, 30) - c << endl;
+  cout << find(c, c + 8, 100) - c << endl; // 要素がない場合は配列の長さ(ここでは8)。
   cout << find(ALL(b), 30) - b.begin()<< endl; // 要素がない場合はfindはc.end()と同じ
 }
 
@@ -184,6 +184,6 @@ int main() {
   cin.sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
-  bitsetFunc();
+  find();
   return 0;
 }
