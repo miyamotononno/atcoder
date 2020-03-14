@@ -28,6 +28,6 @@ int main() {
 
   cin >> N;
 
-  cout << 1 << "\n";
+  cout << -1 << "\n";
   return 0;
 }
