@@ -19,15 +19,14 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
+int A, B, C;
 
 int main() {
   cin.sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
 
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
+  cin >> A >> B >> C;
+  cout << A*B/2 << "\n";
   return 0;
 }

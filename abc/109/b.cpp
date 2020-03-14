@@ -20,6 +20,7 @@ using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int N;
+set<string> S;
 
 int main() {
   cin.sync_with_stdio(false);
@@ -27,7 +28,19 @@ int main() {
   cout.tie(0);
 
   cin >> N;
-  string ans = N>0?"Yes":"No";
+  string W;
+  char pre = 'a';
+  bool flag = true;
+  rep(i, N) {
+    cin >> W;
+    if (i>0) {
+      if (pre != W[0]) flag = false;
+    }
+    pre = W[W.size()-1];
+    S.insert(W);
+  }
+  if (S.size() != N) flag = false;
+  string ans = flag?"Yes":"No";
   cout << ans << "\n";
   return 0;
 }

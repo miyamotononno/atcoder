@@ -17,17 +17,19 @@
 #define PI 3.14159265358979
 typedef long long ll;
 using namespace std;
-const ll MOD = 1e9+7LL;
-const int INF = 2e9;
-int N;
+ll a,b,c;
 
 int main() {
   cin.sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
 
-  cin >> N;
-  string ans = N>0?"Yes":"No";
+  cin >> a >> b >> c;
+  if (c<=a+b) {
+    cout << "No" << "\n";
+    return 0;
+  }
+  string ans = c*(c-2*a-2*b) +pow(max(a, b)-min(a,b),2) > 0?"Yes":"No";
   cout << ans << "\n";
   return 0;
 }

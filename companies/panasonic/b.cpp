@@ -20,14 +20,21 @@ using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int N;
+ll H, W;
 
 int main() {
   cin.sync_with_stdio(false);
   cin.tie(0);
   cout.tie(0);
 
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
+  cin >> H >> W;
+  if (H==1 || W==1) {
+    cout << 1 << endl;
+  }
+  else if (H%2==0 || W%2==0) {
+    cout << H*W/2 << endl;
+  } else {
+    cout << (H*W)/2+1 << "\n";
+  }
   return 0;
 }
