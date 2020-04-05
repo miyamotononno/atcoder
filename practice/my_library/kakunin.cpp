@@ -134,6 +134,14 @@ void find() {
   cout << find(ALL(b), 30) - b.begin()<< endl; // 要素がない場合はfindはc.end()と同じ
 }
 
+/* それより辞書順で大きい順列が存在しないときに抜ける
+以上の場合だと
+  2,3,1
+  3,1,2
+  3,2,1
+  で終わる。
+  全て回すときは昇順に並べること
+*/
 void next_permutaion_func() {
   int a[3] = {2,3,1};
   do {
@@ -142,15 +150,7 @@ void next_permutaion_func() {
         cout << a[i];
     }
     cout << endl;
-} while(next_permutation(a, a + 3));
-  /* それより辞書順で大きい順列が存在しないときに抜ける
-  以上の場合だと
-    2,3,1
-    3,1,2
-    3,2,1
-    で終わる。
-    全て回すときは昇順に並べること
-  */
+  } while(next_permutation(a, a + 3));
 }
 
 void builtin_popcount() {
