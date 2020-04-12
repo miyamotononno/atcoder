@@ -26,18 +26,22 @@ int main() {
   INCANT;
   cin >> N;
   rep(i, N) cin >> A[i];
-  sort(A, A+N);
-  int left = 0;
-  int right = 0;
-  int ans = 0;
-  while(right<N) {
-    if (A[right]<=A[left]+2) right++;
-    else {
-      ans = max(ans, right-left);
-      left++;
+  
+  int cnt = 0;
+  bool flag = false;
+  rep(i, N) {
+    if (A[i]==i+1) {
+      if (flag) {
+        cnt++;
+        flag =false;
+      } else flag =true;
+    } else {
+      if (flag) cnt++;
+      flag = false;
     }
   }
-  ans = max(ans, right-left);
-  cout << ans << "\n";
+  if (flag) cnt++;
+
+  cout << cnt << "\n";
   return 0;
 }

@@ -20,24 +20,11 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N, A[100005];
+int X, t;
 
 int main() {
   INCANT;
-  cin >> N;
-  rep(i, N) cin >> A[i];
-  sort(A, A+N);
-  int left = 0;
-  int right = 0;
-  int ans = 0;
-  while(right<N) {
-    if (A[right]<=A[left]+2) right++;
-    else {
-      ans = max(ans, right-left);
-      left++;
-    }
-  }
-  ans = max(ans, right-left);
-  cout << ans << "\n";
+  cin >> X >> t;
+  cout << max(X-t, 0) << "\n";
   return 0;
 }
