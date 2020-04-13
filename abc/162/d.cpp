@@ -22,43 +22,24 @@ const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int N;
 string S;
-vector<int> R,G,B;
-
-char rest(char a, char b) {
-  if ((a=='R' && b =='G') || (a=='G' && b =='R')) return 'B';
-  else if ((a=='B' && b =='G') || (a=='G' && b =='B')) return 'R';
-  else if ((a=='B' && b =='R') || (a=='R' && b =='B')) return 'G';
-  return ' ';
-}
+ll r,g,b;
 
 int main() {
   INCANT;
   cin >> N;
   cin >> S;
   rep(i, N) {
-    if (S[i]=='R') R.push_back(i);
-    if (S[i]=='G') G.push_back(i);
-    if (S[i]=='B') B.push_back(i);
+    if (S[i]=='R') r++;
+    if (S[i]=='G') g++;
+    if (S[i]=='B') b++;
   }
-  ll ans = 0;
+  ll ans = r*g*b;
   rep(i, N-2) {
     for (int j=i+1; j<N-1; j++) {
       if (S[i]==S[j]) continue;
-      char c = rest(S[i], S[j]);
       int ng = 2*j-i;
-      int cnt=0;
-      if (c=='R') {
-        cnt =upper_bound(ALL(R), j)-R.begin();
-        ans+=R.size()-cnt;
-      } else if (c=='G') {
-        cnt =upper_bound(ALL(G), j)-G.begin();
-        ans+=G.size()-cnt;
-      }else {
-        cnt =upper_bound(ALL(B), j)-B.begin();
-        ans+=B.size()-cnt;
-      }
-      if (ng<N && S[ng]==c) ans--;
-      
+      if (ng>=N) continue;
+      if (S[ng]!=S[i] && S[ng]!=S[j]) ans--;
     }
   }
 
