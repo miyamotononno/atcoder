@@ -20,33 +20,23 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N, M;
-typedef pair<int, pair<int, int> > P;
-P B[100005];
-unordered_map<int, int> Um;
-P Ans[100005];
+int N, T, A;
+double H[1001];
 
 int main() {
   INCANT;
-  cin >> N >> M;
-  int p,y;
-  rep(i, M) {
-    cin >> p >> y;
-    B[i]=P(y, make_pair(p, i));
+  cin >> N >> T >> A;
+  rep(i, N) cin >> H[i];
+  double d = T-A;
+  double mn = 1000000.0;
+  int ans=0;
+  rep(i, N) {
+    if (mn>abs(d-H[i]*0.006)) {
+      mn = abs(d-H[i]*0.006);
+      ans = i+1;
+    }
   }
-  sort(B,B+M);
-  rep(i, M) {
-    P p =B[i];
-    int state = p.second.first;
-    Um[state]++;
-    int d = Um[state];
-    Ans[i] = P(p.second.second, make_pair(state, d));
-  }
-  sort(Ans, Ans+M);
-  rep(i, M) {
-    P p = Ans[i];
-    cout << setfill('0') << right << setw(6) << p.second.first;
-    cout << setfill('0') << right << setw(6) << p.second.second << endl;
-  } 
+  
+  cout << ans << "\n";
   return 0;
 }
