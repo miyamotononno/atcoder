@@ -20,26 +20,12 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
-map<ll, int> M;
+int A, B, x;
 
 int main() {
   INCANT;
-  cin >> N;
-  ll a;
-  rep(i, N) {
-    cin >> a;
-    M[a]++;
-  }
-  ll b=0ll,c=0ll;
-
-  for (auto p : M) {
-    if (p.second>=2) { 
-      b=c;
-      c=p.first;
-    }
-    if (p.second>=4) b = p.first;
-  } 
-  cout << b*c << "\n";
+  cin >> x >> A >> B;
+  char ans = abs(x-B)>abs(x-A)?'A':'B';
+  cout << ans << "\n";
   return 0;
 }

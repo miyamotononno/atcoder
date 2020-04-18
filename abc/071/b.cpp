@@ -20,26 +20,23 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
-map<ll, int> M;
+string S;
+map<char, int> M;
 
 int main() {
   INCANT;
-  cin >> N;
-  ll a;
-  rep(i, N) {
-    cin >> a;
-    M[a]++;
+  cin >> S;
+  rep(i, S.size()) {
+    M[S[i]]++;
   }
-  ll b=0ll,c=0ll;
-
-  for (auto p : M) {
-    if (p.second>=2) { 
-      b=c;
-      c=p.first;
+  rep(i, 26) {
+    char t = 'a'+i;
+    if (!M[t]) {
+      cout << t << endl;
+      return 0;
     }
-    if (p.second>=4) b = p.first;
-  } 
-  cout << b*c << "\n";
+  }
+  cout << "None" << endl;
+      
   return 0;
 }
