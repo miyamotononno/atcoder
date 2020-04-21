@@ -20,35 +20,22 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N, SUML[101], SUMR[101];
-string S;
-
-// Sの左側には(, 右側には)しかこない
+int N;
+int A[501];
 
 int main() {
   INCANT;
-  cin >> N >> S;
+  cin >> N;
+  rep(i, N) cin >> A[i];
 
-  if (S[0]=='(') SUML[0]=1;
-  else SUMR[0]=1;
+  int SUM = 0;
+  int MAX = 0;
   rep(i, N) {
-    if (!i) continue;
-    char c = S[i];
-    if (c=='(') {
-      SUML[i] +=SUML[i-1]+1;
-      SUMR[i] = SUMR[i-1];
-    } else {
-      SUMR[i] += SUMR[i-1]+1;
-      SUML[i] = SUML[i-1];     
-    }
+    SUM+=A[i];
+    MAX = max(A[i], MAX);
   }
-  int left=0;
-  rep(i, N) left=max(left, SUMR[i]-SUML[i]);
-  rep(i, N) SUML[i]+=left;
-  int right = SUML[N-1] - SUMR[N-1];
-  rep(i,left) cout << '(';
-  cout << S;
-  rep(i, right) cout << ')';
-  cout << endl; 
+  
+  cout << SUM << "\n";
+  cout << max(0, 2*MAX-SUM) << "\n";
   return 0;
 }
