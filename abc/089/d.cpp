@@ -20,32 +20,40 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
-map<char, int> M;
-ll a[5];
+int A[90005][2], D, H, W, Q;
+int L[100005], R[100005];
+int M[90005], SUM[90005];
+
+void init() {
+  // D前との魔力の差分
+  for (int i=D; i<H*W; i++) {
+    M[i] = abs(A[i][0]-A[i-D][0])+abs(A[i][1]-A[i-D][1]);
+  }
+  for (int i=D; i<H*W; i++) {
+    SUM[i]=SUM[i-D]+M[i];   
+  }
+}
 
 int main() {
   INCANT;
-  cin >> N;
-  string S;
-  rep(i, N) {
-    cin >> S;
-    M[S[0]]++;
-  }
-  a[0] = M['M'];
-  a[1] = M['A'];
-  a[2] = M['R'];
-  a[3] = M['C'];
-  a[4] = M['H'];
-  ll res=0ll;
-  rep(i, 3) {
-    for (int j=i+1; j<4; j++) {
-      for (int k = j+1; k<5; k++) {
-        res+=a[i]*a[j]*a[k];
-      }
+  cin >> H >> W >> D;
+  int a;
+  rep(i, H) {
+    rep(j, W) {
+      cin >> a;
+      a--;
+      A[a][0]=i;
+      A[a][1]=j;
     }
   }
+  init();
+  cin >> Q;
+  rep(i, Q) cin >> L[i] >> R[i];
+  rep(i, Q) {
+    int l =L[i],r=R[i];
+    l--;r--;
+    cout << SUM[r]-SUM[l] << endl; 
+  }
   
-  cout << res << "\n";
   return 0;
 }

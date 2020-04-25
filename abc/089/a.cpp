@@ -21,31 +21,10 @@ using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int N;
-map<char, int> M;
-ll a[5];
 
 int main() {
   INCANT;
   cin >> N;
-  string S;
-  rep(i, N) {
-    cin >> S;
-    M[S[0]]++;
-  }
-  a[0] = M['M'];
-  a[1] = M['A'];
-  a[2] = M['R'];
-  a[3] = M['C'];
-  a[4] = M['H'];
-  ll res=0ll;
-  rep(i, 3) {
-    for (int j=i+1; j<4; j++) {
-      for (int k = j+1; k<5; k++) {
-        res+=a[i]*a[j]*a[k];
-      }
-    }
-  }
-  
-  cout << res << "\n";
+  cout << N/3 << "\n";
   return 0;
 }
