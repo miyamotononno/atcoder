@@ -18,21 +18,13 @@
 #define PI 3.14159265358979
 typedef long long ll;
 using namespace std;
-int N;
-ll T[101];
+const ll MOD = 1e9+7LL;
+const int INF = 2e9;
+int A,B,C,D;
 
-// -std=gnu++17つけてやらないとエラーになるので注意！！！
 int main() {
   INCANT;
-  cin >> N;
-  rep(i, N) cin >> T[i];
-  ll _gcd = T[0];
-  ll lcp=T[0];
-  rep(i, N) {
-    _gcd = gcd(lcp, T[i]);
-    lcp= lcp/_gcd*T[i];
-  }
-  
-  cout << lcp << "\n";
+  cin >> A >> B >> C >> D;
+  cout << max(0, min(B,D)-max(A, C)) << "\n";
   return 0;
 }
