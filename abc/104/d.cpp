@@ -24,7 +24,6 @@ string S;
 int N;
 ll dp[100005][4]; // idx番目でA,AB,ABCの数
 ll H[100005];
-// kまでのCの個数, Cをk番目と決めた時の,k-1番目までのBの個数, Bをj番目と決めた時の, j-1番目までのAの個数,
 
 ll dfs(int idx, int status) {
   if (idx==-1) return status?0ll:1ll;
