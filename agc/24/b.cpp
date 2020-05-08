@@ -20,13 +20,31 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int A,B, C;
-ll K;
+int N;
+typedef pair<int, int> P;
+P q[200005];
 
 int main() {
   INCANT;
-  cin >> A >> B >> C >> K;
-  int ans = K%2==0?A-B:B-A;
-  cout << ans << "\n";
+  cin >> N;
+  int a;
+  rep(i, N) {
+    cin >> a;
+    q[i] = P(a, i);
+  }
+  sort(q, q+N);
+  int MAX=1;
+  int cnt=0;
+  int prev=-1;
+  for (auto p: q) {
+    if (p.second > prev) {
+      cnt++;
+      MAX=max(MAX, cnt);
+    } else {
+      cnt=1;
+    }
+    prev=p.second;
+  }
+  cout << N-MAX << endl;
   return 0;
 }
