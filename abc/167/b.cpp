@@ -20,13 +20,15 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
+ll A, B, C, K;
 
 int main() {
   INCANT;
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> A >> B >> C >> K;
+  
+  if (A>=K) cout << K;
+  else if (K>A && K<=A+B) cout << A;
+  else cout << A-(K-A-B);
+  cout << "\n";
   return 0;
 }

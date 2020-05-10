@@ -20,13 +20,34 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
+int N, M, X;
+int a[13][13], c[13];
 
 int main() {
   INCANT;
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> N >> M >> X;
+  int cost=INF;
+  rep(i, N) {
+    cin >> c[i];
+    rep(j, M) cin >> a[i][j];
+  }
+  rep(i, 1<<N) {
+    int tmp=0;
+    int L[M];
+    fill(L, L+M, 0);
+    rep(j, N) {
+      int mask = 1<<j;
+      if (mask&i) continue;
+      tmp+=c[j];
+      rep(k, M) L[k]+=a[j][k];
+    }
+    bool ok = true;
+    rep(j, M) {
+      if (L[j]<X) ok = false;
+    }
+    if (ok) cost=min(cost, tmp);
+  }
+  if (cost==INF) cout << -1 << endl;
+  else cout << cost << "\n";
   return 0;
 }
