@@ -1,96 +1,61 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
+#include <cassert>
 #include <cstring>
 #include <string>
 #include <vector>
-#include <random>
 #include <bitset>
 #include <queue>
 #include <cmath>
-#include <stack>
-#include <set>
-#include <map>
-#include <limits>
-using namespace std;
-typedef long long ll;
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(0)
 #define rep(i,n) for (int i=0; i<n;++i)
-struct edge {int to; ll cost; };
-const ll INF = numeric_limits<ll>::max();
-typedef pair<ll, int> P; //firstは最短距離、secondは頂点の番号
- 
+#define ALL(a)  (a).begin(),(a).end()
+typedef long long ll;
+using namespace std;
+const ll INF = 1e16;
 int N, M;
-vector<edge> G[100005], G2[100005];
-ll d[100005], d2[100005], A[100005];
+ll T, A[100005];
+typedef pair<ll, int> P;
+vector<P> G1[100005], G2[100005];
+ll D1[100005], D2[100005];
 
-void dijkstra(int s) {
-  // greater<P>を指定することでfirstが小さい順に取り出せるようにする
-  priority_queue<P, vector<P>, greater<P> >  que;
-  fill(d, d + N, INF);
-  d[s] = 0;
-  que.push(P(0, s));
-
-  while(!que.empty()){
-    P p = que.top(); que.pop();
-    int v = p.second;
-    if (d[v] < p.first) continue;
-    for (int i = 0; i < G[v].size(); i++) {
-      edge e = G[v][i];
-      if (d[e.to] > d[v] + e.cost) {
-        d[e.to] = d[v] + e.cost;
-        que.push(P(d[e.to], e.to));
+void dijkstra(vector<P> G[100005], ll D[100005]) {
+  fill(D, D+N, INF);
+  D[0] = 0ll;
+  queue<P> que;
+  que.push(P(0ll, 0));
+  while(!que.empty()) {
+    P p = que.front(); que.pop();
+    if (p.first > D[p.second]) continue;
+    D[p.second] =p.first;
+    for (auto n: G[p.second]) {
+      if (D[n.second] > n.first+p.first) {
+        D[n.second] = n.first+p.first;
+        que.push(P(n.first+p.first, n.second));
       }
     }
   }
 }
 
-void reverse_dijkstra(int s) {
-  // greater<P>を指定することでfirstが小さい順に取り出せるようにする
-  priority_queue<P, vector<P>, greater<P> >  que;
-  fill(d2, d2 + N, INF);
-  d2[s] = 0;
-  que.push(P(0, s));
-
-  while(!que.empty()){
-    P p = que.top(); que.pop();
-    int v = p.second;
-    if (d2[v] < p.first) continue;
-    for (int i = 0; i < G2[v].size(); i++) {
-      edge e = G2[v][i];
-      if (d2[e.to] > d2[v] + e.cost) {
-        d2[e.to] = d2[v] + e.cost;
-        que.push(P(d2[e.to], e.to));
-      }
-    }
-  }
-}
-
-int main(){
-  cin.sync_with_stdio(false);
-  cin.tie(0);
-  cout.tie(0);
-  int a, b;
-  ll T, c;
-
+int main() {
+  INCANT;
   cin >> N >> M >> T;
-  rep(i,N) cin >> A[i];
-  rep(i, M){
+  rep(i, N) cin >> A[i];
+  int a,b;ll c;
+  rep(i, M) {
     cin >> a >> b >> c;
-    a--, b--;
-    edge v = {b, c};
-    edge v2 = {a, c};
-    G[a].push_back(v);
-    G2[b].push_back(v2);
+    a--; b--;
+    G1[a].push_back(P(c,b));
+    G2[b].push_back(P(c,a));
   }
-
-  ll max_money = 0ll;
-  dijkstra(0);
-  reverse_dijkstra(0);
-
-  rep(i, N){
-    if (d[i] == INF | d2[i] == INF) continue;
-    max_money = max((T - d[i] - d2[i])*A[i], max_money);
+  dijkstra(G1, D1);
+  dijkstra(G2, D2);
+  ll ANS=0ll;
+  rep(i, N) {
+    if (D1[i]==INF || D2[i]==INF) continue;
+    ANS=max(ANS, (T-D1[i]-D2[i])*A[i]);
   }
-  cout << max_money << endl;
+  cout << ANS << endl;
   return 0;
 }
