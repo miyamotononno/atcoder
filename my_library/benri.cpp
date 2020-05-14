@@ -17,6 +17,7 @@ using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int N;
+typedef pair<ll, ll> P;
 
 
 // その他　便利機能
@@ -100,4 +101,14 @@ int stringToInt(string s){
     res = res*10+a;
   }
   return res;
+}
+
+
+// 3つの格子点を結んだ三角形の面積が整数がどうか
+// 三角形の面積を求めたいならばdoubleに変更し、double_area/2を出力すること
+bool triangle_area(P p1, P p2, P p3) {
+  ll x = p3.first-p1.first;
+  if (!x) return false;
+  ll double_area = p1.second*(p3.first-p2.first) + p3.second*(p2.first-p1.first) - p2.second*x;
+  return double_area && double_area%2==0;
 }
