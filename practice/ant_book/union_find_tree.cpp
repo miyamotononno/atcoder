@@ -63,3 +63,9 @@ int size(int x) { // 素集合のサイズ
   return siz[find(x)];
 }
 
+int number_of_connected_compoents(int n) { // 連結成分数(何個のグラフに分かれているか)
+  set<int> S;
+  rep(i, n) S.insert(find(i));
+  return S.size();
+}
+
