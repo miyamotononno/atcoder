@@ -41,6 +41,33 @@ ll COM(int n, int k){
     return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
 
+
+ll Comb[200005]; // nCkにおいてnが固定されている場合
+ll K=100001;
+ll N=200001;
+
+ll modpow(ll a, ll n) {
+    ll res = 1;
+    while (n > 0) {
+        if (n & 1) res = res * a % MOD;
+        a = a * a % MOD;
+        n >>= 1;
+    }
+    return res;
+}
+
+ll modinv(ll a) {
+    return modpow(a, MOD - 2);
+}
+
+void init() {
+  Comb[0] = 1ll;
+  rep(i, K) {
+    if (i==0) continue;
+    Comb[i] = Comb[i-1]*(N-i+1)%MOD*modinv(i)%MOD;
+  }
+}
+
 int main() {
   cin.sync_with_stdio(false);
   cin.tie(0);
