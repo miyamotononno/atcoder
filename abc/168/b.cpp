@@ -20,15 +20,18 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
-
-// g++ a.cpp -std=gnu++17
+string s;
+int K;
 
 int main() {
   INCANT;
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> K >> s;
+  if (s.size()<=K) {
+    cout << s << endl;
+    return 0;
+  }
+  rep(i, K) cout << s[i];
+  cout << "...";
+  cout <<  "\n";
   return 0;
 }
