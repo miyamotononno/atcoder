@@ -20,26 +20,39 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N,A[200004];
-ll K;
-int doubling[61][200004]; // ダブリング. 街jから2^i進めた街
+int N;
+vector<int> G[100005];
+int S[100005];
+vector<int> ans;
 
+void dijkstra() {
+  priority_queue<int, vector<int>, greater<int> > pque;
+  pque.push(0);
+  while(!pque.empty()) {
+    int q = pque.top();pque.pop();
+    if (S[q]) continue;
+    ans.push_back(q);
+    S[q] = 1;
+    for (auto p: G[q]) {
+      if (!S[p]) pque.push(p);
+    }
+  }
+}
 int main() {
   INCANT;
-  cin >> N >> K;
+  cin >> N;
+  int a,b;
+  rep(i, N-1) {
+    cin >> a >> b;
+    a--;b--;
+    G[a].push_back(b);
+    G[b].push_back(a);
+  }
+  dijkstra();
   rep(i, N) {
-    cin >> A[i];
-    A[i]--;
+    cout << ans[i]+1;
+    if (i<N-1) cout << ' ';
+    else cout << endl; 
   }
-  rep(i, N) doubling[0][i]=A[i];
-  // 自分の街jの2^(i+1)後の街は、自分の街から2^i後の街からさらに2^i進んだ街に等しい
-  rep(i, 60) {
-    rep(j, N) doubling[i+1][j] = doubling[i][doubling[i][j]];
-  }
-  int n=0;
-  rep(i, 60) {
-    if ((K>>i) & 1) n = doubling[i][n]; 
-  }
-  cout << n+1 << endl;
   return 0;
 }
