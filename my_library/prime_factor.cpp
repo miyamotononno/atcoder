@@ -19,8 +19,8 @@ using namespace std;
 // 素因数分解
 // prime_factor(n):=自然数nを素因数分解した結果を返す。計算量はO(√n)
 
-map< int, int > prime_factor(int n) {
-  map< int, int > ret;
+map<int, int> prime_factor(int n) {
+  map<int, int> ret;
   for(int i = 2; i * i <= n; i++) {
     while(n % i == 0) {
       ret[i]++;
