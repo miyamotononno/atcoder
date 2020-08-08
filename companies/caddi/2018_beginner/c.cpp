@@ -20,13 +20,33 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int N;
+ll N, P;
+
+map<ll, int> prime_factor(ll n) {
+  map<ll, int> ret;
+  for(ll i = 2; i * i <= n; i++) {
+    while(n % i == 0) {
+      ret[i]++;
+      n /= i;
+    }
+  }
+  if(n != 1) ret[n] = 1;
+  return ret;
+}
 
 int main() {
   INCANT;
-  cin >> N;
-  string ans = N>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> N >> P;
+  map<ll, int> ret = prime_factor(P);
+  ll ans = 1ll;
+  for (auto p: ret) {
+    int cnt = p.second;
+    while (cnt>=N) {
+      ans*=p.first;
+      cnt-=N;
+    }
+  }
+
+  cout  << ans << endl;
   return 0;
 }
