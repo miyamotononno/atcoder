@@ -17,15 +17,31 @@
 #define ALL(a)  (a).begin(),(a).end()
 typedef long long ll;
 using namespace std;
-const ll MOD = 1e9+7LL;
-const int INF = 2e9;
-int n;
+int N, K;
+unordered_map<string, int> S;
+vector<string> A[100005];
 
 int main() {
   INCANT;
-  cin >> n;
-  string ans = n>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> N >> K;
+  string s;
+  rep(i, N) {
+    cin >> s;
+    S[s]++;
+  }
+  for (auto p: S) A[p.second].push_back(p.first);
+  int idx = 0;
+  for (int i=N; i>=1; i--) {
+    if (idx>=K) {
+      cout << "AMBIGUOUS" << endl;
+      return 0;
+    }
+    if (idx==K-1 && A[i].size()==1) {
+      cout << A[i][0] << endl;
+      return 0;
+    }
+    idx+=A[i].size();
+  }
+  cout << "AMBIGUOUS" << endl;
   return 0;
 }

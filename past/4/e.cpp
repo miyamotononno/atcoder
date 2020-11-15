@@ -19,13 +19,30 @@ typedef long long ll;
 using namespace std;
 const ll MOD = 1e9+7LL;
 const int INF = 2e9;
-int n;
+int N;
+string S;
 
 int main() {
   INCANT;
-  cin >> n;
-  string ans = n>0?"Yes":"No";
-  cout << ans << "\n";
-  cout << -1 << "\n";
+  cin >> N;
+  cin >> S;
+  int a[N];
+  rep(i, N) a[i]=i;
+  do {
+    string tmp = "";
+    for (int i = 0; i < N; i++) tmp+=S[a[i]];
+    if (tmp==S) continue;
+    bool revFlag = true;
+    for (int i=N-1; i>=0; i--) {
+      if (tmp[i]!=S[N-1-i]) {
+        revFlag=false;
+        break;
+      }
+    }
+    if (revFlag) continue;
+    cout << tmp << endl;
+    return 0;
+  } while(next_permutation(a, a + N));
+  cout << "None" << endl;
   return 0;
 }
