@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <random>
-#include <bitset>
 #include <queue>
 #include <cmath>
 #include <unordered_map>
