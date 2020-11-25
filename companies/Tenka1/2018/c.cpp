@@ -1,111 +1,86 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
+#include <cassert>
 #include <cstring>
 #include <string>
 #include <vector>
 #include <random>
-#include <bitset>
-#include <queue>
+#include <deque>
 #include <cmath>
 #include <unordered_map>
+#include <set>
+#include <map>
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(0), cout << fixed << setprecision(20);
 #define rep(i,n) for (int i=0; i<n;++i)
-#define rep_down(i,n) for (int i=n-1; i>=0;--i)
 #define ALL(a)  (a).begin(),(a).end()
 typedef long long ll;
 using namespace std;
-const ll MOD = 1000000007LL;
-const int INF = 1000000007;
-int N;
-priority_queue<ll, vector<ll>, greater<ll> > asc_que;
-priority_queue<ll> desc_que;
-priority_queue<ll, vector<ll>, greater<ll> > asc_que2;
-priority_queue<ll> desc_que2;
+const ll MOD = 1e9+7LL;
+const int INF = 2e9;
+int n;
+ll A[100005];
+ll B[100005][2];
 
-ll calc(){
-  ll left = asc_que.top();
-  ll right = asc_que.top();
-  asc_que.pop();
-  bool flag = true;
-  ll ans = 0;
-  int cnt = 0;
-  rep(i, N-1){
-    ll a = 0;
-    if (flag){
-      a = desc_que.top();
-      desc_que.pop();
-    }else{
-      a = asc_que.top();
-      asc_que.pop();
-    }
-    if (cnt==0){
-      ans += abs(a-left);
-      left = a;
-    }
-    if (cnt==1){
-      ans += abs(a-right);
-      right = a;
-    }
-    cnt++;
-    if (cnt==2){
-      flag = !flag;
-      cnt = 0;
-    }
+ll calc(deque<ll> que, bool rev) { // 中心が最小か、最大か
+  memset(B, 0, sizeof(B));
+  ll mid;
+  if (rev) {
+    mid = que.back();
+    que.pop_back();
+  } else {
+    mid = que.front();
+    que.pop_front();
   }
-  return ans;
-}
-
-ll calc2(){
-  ll left = desc_que2.top();
-  ll right = desc_que2.top();
-  desc_que2.pop();
-  bool flag = false;
-  ll ans = 0;
-  int cnt = 0;
-  rep(i, N-1){
-    ll a = 0;
-    if (flag){
-      a = desc_que2.top();
-      desc_que2.pop();
-    }else{
-      a = asc_que2.top();
-      asc_que2.pop();
+  vector<int> L, R;
+  L.push_back(mid);R.push_back(mid);
+  int idx = 1;
+  rev = rev==false;
+  while(!que.empty()) {
+    ll left, right;
+    if (rev) {
+      left = que.back();
+      que.pop_back();
+    } else {
+      left = que.front();
+      que.pop_front();
     }
-    if (cnt==0){
-      ans += abs(a-left);
-      left = a;
+    L.push_back(left);
+    if (que.empty()) break;
+    if (rev) {
+      right = que.back();
+      que.pop_back();
+    } else {
+      right = que.front();
+      que.pop_front();
     }
-    if (cnt==1){
-      ans += abs(a-right);
-      right = a;
-    }
-    cnt++;
-    if (cnt==2){
-      flag = !flag;
-      cnt = 0;
-    }
+    R.push_back(right);
+    rev = rev==false;
+    idx++;
   }
-  return ans;
+  ll ret = 0ll;
+  rep(i, L.size()-1) {
+    ret+=abs(L[i+1]-L[i]);
+  }
+  rep(i, R.size()-1) {
+    ret+=abs(R[i+1]-R[i]);
+  }
+  return ret;
 }
 
 int main() {
-  cin.sync_with_stdio(false);
-  cin.tie(0);
-  cout.tie(0);
-
-  cin >> N;
-  ll a;
-  rep(i, N){
-    cin >> a;
-    asc_que.push(a);
-    desc_que.push(a);
-    asc_que2.push(a);
-    desc_que2.push(a);
+  INCANT;
+  cin >> n;
+  rep(i, n) cin >> A[i];
+  if (n==2) {
+    cout << A[1] - A[0] << endl;
+    return 0;
   }
-  ll ans1 = calc();
-  ll ans2 = calc2();
-
-
-  cout << max(ans1, ans2) << "\n";
+  sort(A,A+n);
+  deque<ll> que;
+  rep(i, n) que.push_back(A[i]);
+  
+  
+  cout << max(calc(que, true), calc(que, false)) << "\n";
   return 0;
 }
