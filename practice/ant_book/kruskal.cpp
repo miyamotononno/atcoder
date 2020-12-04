@@ -16,56 +16,50 @@ using namespace std;
 typedef long long ll;
 #define rep(i,n) for (int i=0; i<n;++i)
 struct edge {int u, v, cost;};
+edge es[200005];
+int V, E; //頂点数と変数
+
+struct UnionFind {
+    vector<int> par;
+    
+    UnionFind(int n) : par(n, -1) { }
+    void init(int n) { par.assign(n, -1); }
+    
+    int root(int x) {
+        if (par[x] < 0) return x;
+        else return par[x] = root(par[x]);
+    }
+    
+    bool issame(int x, int y) {
+        return root(x) == root(y);
+    }
+    
+    bool unite(int x, int y) {
+        x = root(x); y = root(y);
+        if (x == y) return false;
+        if (par[x] > par[y]) swap(x, y); // merge technique
+        par[x] += par[y];
+        par[y] = x;
+        return true;
+    }
+    
+    int size(int x) {
+        return -par[root(x)];
+    }
+};
 
 bool comp(const edge& e1, const edge& e2){
   return e1.cost < e2.cost;
 }
 
-int V, E; //頂点数と変数
-edge es[MAX_E];
-int par[MAX_V]; //親
-int tree_rank[MAX_V]; //木の深さ
-
-void init_union_find(int n){
-  rep(i, n){
-    par[i] = i;
-    tree_rank[i] = 0;
-  }
-}
-
-// 木の根を求める
-int find(int x){
-  if (par[x] == x) return x;
-  else return par[x] = find(par[x]);
-}
-
-// xとyの属する集合を併合
-void unite(int x, int y){
-  x = find(x);
-  y = find(y);
-  if (x == y) return;
-
-  if (tree_rank[x] < tree_rank[y]) par[x] = y;
-  else{
-    par[y] = x;
-    if (tree_rank[x] == tree_rank[y]) tree_rank[x]++;
-  }
-}
-
-// xとyが同じ要素に属するかどうか
-bool same(int x, int y){
-  return find(x) == find(y);
-}
-
-
 int kruskal() {
   sort(es, es+V, comp);
-  init_union_find(V);
+  UnionFind uf(V);
   int res = 0;
   rep(i, E){
     edge e = es[i];
-    if (!same(e.u, e.v)) {
-      unite(e.u, e.v);
+    if (!uf.issame(e.u, e.v)) {
+      uf.unite(e.u, e.v);
       res += e.cost;
     }
   }
