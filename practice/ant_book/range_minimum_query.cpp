@@ -7,11 +7,20 @@ const int MAX_N = 1 << 17;
 // セグメント木を持つグローバル配列
 int n, dat[2*MAX_N-1];
 
+int op(int a, int b) {
+  return min(a, b);
+}
+
+// 単位元 (今回は 0)
+int e() {
+    return INF;
+}
+
 void init(int n_) {
   // 簡単のため、要素数を2の冪乗にする。
   int n=1;
   while(n<n_) n*=2;
-  rep(i,2*n-1) dat[i]=INF;
+  rep(i,2*n-1) dat[i]=e();
 }
 
 // k番目の値をaに変更
@@ -22,7 +31,7 @@ void update(int k, int a) {
   // のぼりながら更新
   while(k>0) {
     k=(k-1)/2;
-    dat[k]=min(dat[k*2+1], dat[k*2+2]);
+    dat[k]=op(dat[k*2+1], dat[k*2+2]);
   }
 }
 
@@ -30,14 +39,14 @@ void update(int k, int a) {
 // kは接点の番号、l,rはその接点が[l,r)に対応づいていることを表す
 int query(int a, int b, int k, int l, int r) {
   //[a,b)と[l,r)が交差しなければINT_MAX
-  if (r <= a || b <= l) return INF; 
+  if (r <= a || b <= l) return e(); 
   //[a,b)と[l,r)が完全に含んでいれば、この接点の値
   if (a<=l && r <=b) return dat[k];
   else {
     // そうでなければ二つの子の最小値
     int vl = query(a,b,k*2+1,l, (l+r)/2);
     int vr = query(a,b,k*2+2,(l+r)/2, r);
-    return min(vl, vr);
+    return op(vl, vr);
   }
 }
 
