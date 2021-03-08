@@ -1,0 +1,41 @@
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <cassert>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <random>
+#include <queue>
+#include <cmath>
+#include <unordered_map>
+#include <set>
+#include <map>
+#define INCANT cin.tie(0), cout.tie(0), ios::sync_with_stdio(0), cout << fixed << setprecision(20);
+#define rep(i,n) for (int i=0; i<n;++i)
+#define ALL(a)  (a).begin(),(a).end()
+typedef long long ll;
+using namespace std;
+const ll MOD = 1e9+7LL;
+const int INF = 2e9;
+int a,b,c;
+
+int main() {
+  INCANT;
+
+  cin >> a >> b >> c;
+  string taka = "Takahashi";
+  string aoki = "Aoki";
+  if (a<b) {
+    cout << aoki << endl;
+  } else if (a>b) {
+    cout << taka << endl;
+  } else {
+    if (c%2==0) {
+      cout << aoki << endl;
+    } else {
+      cout << taka << endl;
+    }
+  }
+  return 0;
+}
