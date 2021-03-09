@@ -20,7 +20,7 @@ using namespace std;
 int n, m;
 
 // グラフ、頂点の入次数、頂点数を受け取り、そのトポロジカルソートを記録した配列を返す関数
-vector<int> topological_sort(vector<vector<int>> &G, vector<int> &indegree, int n) {
+vector<int> topological_sort(vector<vector<int> > &G, vector<int> &indegree, int n) {
     // トポロジカルソートを記録する配列
     vector<int> sorted_vertices;
 
@@ -60,7 +60,7 @@ int main() {
     G[a].push_back(b);
     indegree[b]++;
   }
-  vector<int> ret = topological_sort(G, indegree, 0);
+  vector<int> ret = topological_sort(G, indegree, n);
   rep(i, n) cout << ret[i] << "\n";
   return 0;
 }
