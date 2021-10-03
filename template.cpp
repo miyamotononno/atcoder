@@ -20,6 +20,8 @@ const ll MOD = 1e9+7LL;
 const int INF = 2e9;
 int n;
 
+// g++ template.cpp -std=c++14
+
 int main() {
   INCANT;
   cin >> n;
